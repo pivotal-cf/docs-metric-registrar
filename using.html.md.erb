@@ -112,7 +112,7 @@ In some cases you may not wish to leverage a public endpoint for your app's cust
         cf register-metrics-endpoint example-app https://example-app.cf.internal/metrics
         ```
 
-<p class="note"><strong>Note: </strong> Each metrics endpoint registered with Metric Registrar creates a service instance. In the case where this service name is longer than 50 characters, it will be encoded with a hash.</p>
+<p class="note"><strong>Note: </strong> Each metrics endpoint registered with Metric Registrar creates a service instance. If the generated service name is longer than 50 characters, it will be encoded with a hash.</p>
 
 
 #### <a id="endpoint-verify"></a> Verify a Metrics Endpoint
