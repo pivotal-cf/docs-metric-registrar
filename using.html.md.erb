@@ -42,7 +42,8 @@ For more information about Prometheus, see [What is Prometheus?](https://prometh
 
 For examples of apps that use Prometheus to publish metrics to an endpoint, see [metric-registrar-examples](https://github.com/pivotal-cf/metric-registrar-examples) in GitHub.
 
-<p class='note'><strong>Note: </strong> These endpoints are public by default. If you do not want to expose public metrics endpoints for your app, see <a href="#register-internal-route">Register a Metrics Endpoint Using an Internal Route</a> or <a href="#register-log-format">Register a Structured Log Format</a> below.</p>
+<p class='note'><strong>Note: </strong> These endpoints are public by default. If you do not want to expose public metrics endpoints for your app, see <a href="#register-
+	-route">Register a Metrics Endpoint Using an Internal Route</a> or <a href="#register-log-format">Register a Structured Log Format</a> below.</p>
 
 <p class='note'><strong>Note: </strong> Metrics endpoints must be served over `HTTPS`.</p>
 
@@ -111,6 +112,8 @@ In some cases you may not wish to leverage a public endpoint for your app's cust
         ```
         cf register-metrics-endpoint example-app https://example-app.cf.internal/metrics
         ```
+
+<p class='note'><strong>Note: </strong> The ability to register an internal route is only availble on PAS version 2.5.12 and higher.</p>
 
 <p class='note'><strong>Note: </strong> Each metrics endpoint registered with Metric Registrar creates a service instance. If the generated service name is longer than 50 characters, it will be encoded with a hash.</p>
 
