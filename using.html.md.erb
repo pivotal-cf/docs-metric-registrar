@@ -44,7 +44,7 @@ For examples of apps that use Prometheus to publish metrics to an endpoint, see 
 
 <p class='note'><strong>Note: </strong> These endpoints are public by default. If you do not want to expose public metrics endpoints for your app, see <a href="#register-internal-route">Register a Metrics Endpoint Using an Internal Route</a> or <a href="#register-log-format">Register a Structured Log Format</a> below.</p>
 
-<p class='note'><strong>Note: </strong> Metrics endpoints must be served over `HTTPS`.</p>
+<p class='note'><strong>Note: </strong> Metrics endpoints must be served over <code>HTTPS</code>.</p>
 
 #### <a id="prerequisites"></a> Prerequisites
 
@@ -93,11 +93,13 @@ To register a public metrics endpoint for an app, do the following:
 <p class='note'><strong>Note: </strong> When specifying a path to a metrics endpoint, the path must start with a <code>/</code> character.</p>
 
 #### <a id="register-internal-route"></a> Register a Metrics Endpoint Using an Internal Route
-In some cases you may not wish to leverage a public endpoint for your app's custom metrics. In this case you can [map a secure internal route](https://docs.pivotal.io/pivotalcf/2-6/devguide/deploy-apps/routes-domains.html#internal-routes) to expose your app's metrics only within your Cloud Foundry. To register a metrics endpoint for an app using an internal route, do the following:
+You may not want to use a public endpoint for your app custom metrics. You can map a secure internal route to expose your app metrics only within <%= vars.product_name %>. For more information, see [Internal Container-to-Container Routes](https://docs.pivotal.io/platform/application-service/<%= product_info['local_product_version'].to_s.sub('.','-') %>/devguide/deploy-apps/routes-domains.html#internal-routes).
+
+To register a metrics endpoint for an app using an internal route:
 
 1. Log in to the cf CLI.
 
-1. For each Prometheus endpoint in your app that you wish to map to an internal route, run the following command to register the endpoint as a metric source:
+1. For each Prometheus endpoint in your app that you want to map to an internal route, run the following command to register the endpoint as a metric source:
 
 	```
 	 cf register-metrics-endpoint APP-NAME ROUTE
