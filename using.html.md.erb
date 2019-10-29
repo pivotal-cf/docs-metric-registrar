@@ -29,12 +29,12 @@ To install the Metric Registrar CLI plugin, do the following:
 
 To register your app as a metric source, do one of the following:
 
-* **Register a public endpoint**: Register a public endpoint for custom metrics to be parsed and emitted to Loggregator. See [Register a Public Metrics Endpoint](#register-endpoint) below.
+* **Register a metrics endpoint**: Register a metrics endpoint for custom metrics to be parsed and emitted to Loggregator. See [Register a Metrics Endpoint](#register-endpoint) below.
 * **Register a structured log format**: Register a structured log format that can be emitted to Loggregator. See [Register a Structured Log Format](#register-log-format).
 
 <p class='note'><b>Note: </b> If you are migrating from and manually send data to Metrics Forwarder for <%= vars.product_name %>, Pivotal recommends registering a structured log format. See <a href="#register-log-format">Register a Structured Log Format.</p>
 
-### <a id="register-endpoint"></a> Register a Public Metrics Endpoint
+### <a id="register-endpoint"></a> Register a Metrics Endpoint
 
 The Metric Registrar supports custom metrics created with the open-source tool, Prometheus. Prometheus uses a text-based exposition format common in many open-source libraries. It also provides several out-of-the-box metrics for different programming languages.
 
@@ -42,11 +42,13 @@ For more information about Prometheus, see [What is Prometheus?](https://prometh
 
 For examples of apps that use Prometheus to publish metrics to an endpoint, see [metric-registrar-examples](https://github.com/pivotal-cf/metric-registrar-examples) in GitHub.
 
-<p class="note"><strong>Note</strong>: These endpoints must be public for the Metric Registrar to retrieve the data. If you do not want to expose public endpoints for your app, see <a href="#register-log-format">Register a Structured Log Format</a> below.</p>
+<p class='note'><strong>Note: </strong> These endpoints are public by default. If you do not want to expose public metrics endpoints for your app, see <a href="#register-internal-route">Register a Metrics Endpoint Using an Internal Route</a> or <a href="#register-log-format">Register a Structured Log Format</a> below.</p>
+
+<p class='note'><strong>Note: </strong> Metrics endpoints must be served over <code>HTTPS</code>.</p>
 
 #### <a id="prerequisites"></a> Prerequisites
 
-Before registering a public metrics endpoint, you must do the following:
+Before registering a metrics endpoint, you must do the following:
 
 * For all Spring apps, update the `application.yml` file to include one or more Prometheus endpoints. For example:
 
@@ -65,7 +67,7 @@ Before registering a public metrics endpoint, you must do the following:
 
 * For all Spring apps, update the security configuration file to permit access to the Prometheus endpoints. For an example, see [metric-registrar-examples](https://github.com/pivotal-cf/metric-registrar-examples/blob/master/java-spring-security/src/main/java/io/pivotal/metric_registrar/examples/spring_security/SecurityConfig.java) in GitHub.
 
-* For all other apps, see [client libraries] provided by the open-source community.
+* For all other apps, see [client libraries](https://prometheus.io/docs/instrumenting/clientlibs/) provided by the open-source community.
 
 #### <a id="endpoint-procedure"></a> Register a Public Metrics Endpoint
 
@@ -88,7 +90,34 @@ To register a public metrics endpoint for an app, do the following:
         cf register-metrics-endpoint example /metrics
         ```
 
-#### <a id="endpoint-verify"></a> Verify a Public Metrics Endpoint
+<p class='note'><strong>Note: </strong> When specifying a path to a metrics endpoint, the path must start with a <code>/</code> character.</p>
+
+#### <a id="register-internal-route"></a> Register a Metrics Endpoint Using an Internal Route
+You may not want to use a public endpoint for your app custom metrics. You can map a secure internal route to expose your app metrics only within <%= vars.product_name %>. For more information, see [Internal Container-to-Container Routes](https://docs.pivotal.io/platform/application-service/<%= product_info['local_product_version'].to_s.sub('.','-') %>/devguide/deploy-apps/routes-domains.html#internal-routes).
+
+To register a metrics endpoint for an app using an internal route:
+
+1. Log in to the cf CLI.
+
+1. For each Prometheus endpoint in your app that you want to map to an internal route, run the following command to register the endpoint as a metric source:
+
+	```
+	 cf register-metrics-endpoint APP-NAME ROUTE
+	```  
+	Where:
+	* `APP-NAME` is the name of the app.
+	* `ROUTE` is the internal route to your Prometheus endpoint.
+
+	For example, if the app name is `example-app` and the metrics endpoint lives at `https://example-app.cf.internal/metrics` the command would be:
+
+        ```
+        cf register-metrics-endpoint example-app https://example-app.cf.internal/metrics
+        ```
+
+<p class='note'><strong>Note: </strong> Each metrics endpoint registered with Metric Registrar creates a service instance. If the generated service name is longer than 50 characters, it will be encoded with a hash.</p>
+
+
+#### <a id="endpoint-verify"></a> Verify a Metrics Endpoint
 
 Pivotal recommends that you install the LogCache cf CLI plugin to view metrics.
 
@@ -111,7 +140,7 @@ To install and use the Log Cache cf CLI plugin, do the following:
     <pre class="terminal">2019-06-18T10:49:28.27-0600 [app-name/1] GAUGE cpu:0.154763 percentage disk:14000128.000000 bytes disk_quota:33554432.000000 bytes memory:10190848.000000 bytes memory_quota:33554432.000000 bytes
     2019-06-18T10:49:26.42-0600 [app-name/1] GAUGE users_per_cpu:557.500000</pre>
 
-    Where the first line is default container metrics and the second line is custom metrics `users_per_cpu`. <p class='note'><strong>Note:</strong> The Metric Registrar produces the following benign error message at every polling interval: <code>[LGR/] ERR Invalid syslog drain URL: parse failure</code></p>
+    Where the first line is default container metrics and the second line is custom metrics `users_per_cpu`. <p class='note'><strong>Note: </strong> The Metric Registrar produces the following benign error message at every polling interval: <code>[LGR/] ERR Invalid syslog drain URL: parse failure</code></p>
 
 ### <a id="register-log-format"></a> Register a Structured Log Format
 
