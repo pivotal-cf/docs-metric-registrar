@@ -1,5 +1,5 @@
 ---
-title: Registering and Emitting Custom App Metrics
+title: Using Metric Registrar
 owner: Metric Registrar
 ---
 This topic describes how to install the Metric Registrar CLI plugin and emit custom app
@@ -11,7 +11,7 @@ Registering your app as a metric source allows you to see your custom metrics in
 Metrics and configure autoscaling rules with <%= vars.product_name %>
 Autoscaler. 
 
-For more information, see [<%= vars.product_name %> Metrics](https://docs.pivotal.io/pcf-metrics) and [<%= vars.product_name %> Autoscaler](../appsman-services/autoscaler/using-autoscaler.html). 
+For more information, see [<%= vars.product_name %> Metrics](https://docs.pivotal.io/app-metrics) and [<%= vars.product_name %> Autoscaler](../appsman-services/autoscaler/using-autoscaler.html).
 
 ## <a id="install-plugin"></a> Install the Plugin
 
@@ -114,8 +114,6 @@ To register a metrics endpoint for an app using an internal route:
         cf register-metrics-endpoint example-app https://example-app.cf.internal/metrics
         ```
 
-<p class='note'><strong>Note: </strong> The ability to register an internal route is only availble on PAS version 2.7.1 and higher.</p>
-
 <p class='note'><strong>Note: </strong> Each metrics endpoint registered with Metric Registrar creates a service instance. If the generated service name is longer than 50 characters, it will be encoded with a hash.</p>
 
 
@@ -142,7 +140,7 @@ To install and use the Log Cache cf CLI plugin, do the following:
     <pre class="terminal">2019-06-18T10:49:28.27-0600 [app-name/1] GAUGE cpu:0.154763 percentage disk:14000128.000000 bytes disk_quota:33554432.000000 bytes memory:10190848.000000 bytes memory_quota:33554432.000000 bytes
     2019-06-18T10:49:26.42-0600 [app-name/1] GAUGE users_per_cpu:557.500000</pre>
 
-    Where the first line is default container metrics and the second line is custom metrics `users_per_cpu`. <p class='note'><strong>Note: </strong> The Metric Registrar produces the following benign error message at every polling interval: <code>[LGR/] ERR Invalid syslog drain URL: parse failure</code></p>
+    Where the first line is default container metrics and the second line is custom app metrics `users_per_cpu`. <p class='note'><strong>Note: </strong> The Metric Registrar produces the following benign error message at every polling interval: <code>[LGR/] ERR Invalid syslog drain URL: parse failure</code></p>
 
 ### <a id="register-log-format"></a> Register a Structured Log Format
 

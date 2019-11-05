@@ -1,10 +1,14 @@
 ---
-title: Configuring the Metric Registrar
+title: Metric Registrar and Custom App Metrics
 owner: registrar
 ---
 
-This topic describes the Metric Registrar for Pivotal Application Service (PAS). It also includes information about enabling and configuring the Metric Registrar. 
+This topic describes the Metric Registrar for <%= vars.app_runtime_full %> (<%= vars.app_runtime_abbr %>), which lets developers define and use their own custom app metrics.
 
+The topic also explains how to enable and configure the Metric Registrar from the <%= vars.app_runtime_abbr %> tile.
+
+App metrics include custom app metrics that you can export with the Metric Registrar, plus container metrics emitted by all <%= vars.app_runtime_abbr %> containers.
+For information about container metrics, see [Container Metrics](../loggregator/container-metrics.html).
 
 ## <a id="overview"></a> Overview 
 
@@ -20,7 +24,7 @@ For more information about installing the Metric Registrar Plugin and registerin
 For more information about the components and products mentioned, see the following:
 
 - [Loggregator](https://docs.pivotal.io/pivotalcf/loggregator/architecture.html)
-- [Pivotal App Metrics](https://docs.pivotal.io/pcf-metrics)
+- [Pivotal App Metrics](https://docs.pivotal.io/app-metrics)
 - [Pivotal Autoscaler](https://docs.pivotal.io/pivotalcf/appsman-services/autoscaler/using-autoscaler.html)
 
 ## <a id="architecture"></a> Architecture 
