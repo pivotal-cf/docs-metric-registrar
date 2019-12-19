@@ -75,11 +75,11 @@ To register a public metrics endpoint for an app, do the following:
 1. For each Prometheus endpoint in your app, run the following command to register the endpoint as a metric source:
 
 	```
-	 cf register-metrics-endpoint APP-NAME PATH_OR_URL
+	 cf register-metrics-endpoint APP-NAME PATH-OR-URL
 	```  
 	Where:
 	* `APP-NAME` is the name of the app.
-	* `PATH` is the path to the Prometheus endpoint, or a URL without the scheme.
+	* `PATH-OR-URL` is the path to the Prometheus endpoint or a URL without the scheme.
 
 	For example, if the app name is `example` and the metrics endpoint lives at `https://example.com/metrics` the command would be:
         
