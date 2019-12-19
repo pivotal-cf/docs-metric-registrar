@@ -44,7 +44,7 @@ For more information about Prometheus, see [What is Prometheus?](https://prometh
 
 For examples of apps that use Prometheus to publish metrics to an endpoint, see [metric-registrar-examples](https://github.com/pivotal-cf/metric-registrar-examples) in GitHub.
 
-<p class='note'><strong>Note: </strong> These endpoints are public by default. If you do not want to expose public metrics endpoints for your app, see <a href="#register-internal-route">Register a Metrics Endpoint Using an Internal Route</a> or <a href="#register-log-format">Register a Structured Log Format</a> below.</p>
+<p class='note'><strong>Note: </strong> These endpoints are public by default. If you do not want to expose public metrics endpoints for your app, see <a href="#register-log-format">Register a Structured Log Format</a> below.</p>
 
 <p class='note'><strong>Note: </strong> Metrics endpoints must be served over <code>HTTPS</code>.</p>
 
@@ -59,12 +59,7 @@ Before registering a metrics endpoint, you must do the following:
 	  endpoints:
 	    web:
 	      exposure:
-	        include: "metrics,prometheus"
-	  endpoint:
-	    metrics:
-	      enabled: true
-	    prometheus:
-	      enabled: true
+	        include: "prometheus"
 	```
 
 * For all Spring apps, update the security configuration file to permit access to the Prometheus endpoints. For an example, see [metric-registrar-examples](https://github.com/pivotal-cf/metric-registrar-examples/blob/master/java-spring-security/src/main/java/io/pivotal/metric_registrar/examples/spring_security/SecurityConfig.java) in GitHub.
@@ -80,42 +75,29 @@ To register a public metrics endpoint for an app, do the following:
 1. For each Prometheus endpoint in your app, run the following command to register the endpoint as a metric source:
 
 	```
-	 cf register-metrics-endpoint APP-NAME PATH
+	 cf register-metrics-endpoint APP-NAME PATH_OR_URL
 	```  
 	Where:
 	* `APP-NAME` is the name of the app.
-	* `PATH` is the path to the Prometheus endpoint.
+	* `PATH` is the path to the Prometheus endpoint, or a URL without the scheme.
 
 	For example, if the app name is `example` and the metrics endpoint lives at `https://example.com/metrics` the command would be:
         
         ```
         cf register-metrics-endpoint example /metrics
         ```
+        
+        Or, if pulling metrics from a different URL:
+        
+        ```
+        cf register-metrics-endpoint example otherexample.com/metrics
+        ```
 
 <p class='note'><strong>Note: </strong> When specifying a path to a metrics endpoint, the path must start with a <code>/</code> character.</p>
 
-#### <a id="register-internal-route"></a> Register a Metrics Endpoint Using an Internal Route
-You may not want to use a public endpoint for your app custom metrics. You can map a secure internal route to expose your app metrics only within <%= vars.product_name %>. For more information, see [Internal Container-to-Container Routes](https://docs.pivotal.io/platform/application-service/<%= product_info['local_product_version'].to_s.sub('.','-') %>/devguide/deploy-apps/routes-domains.html#internal-routes).
+<p class='note'><strong>Note: </strong> When specifying a URL to a metrics endpoint, the scheme must be omitted and the URL must use https.
 
-To register a metrics endpoint for an app using an internal route:
-
-1. Log in to the cf CLI.
-
-1. For each Prometheus endpoint in your app that you want to map to an internal route, run the following command to register the endpoint as a metric source:
-
-	```
-	 cf register-metrics-endpoint APP-NAME ROUTE
-	```  
-	Where:
-	* `APP-NAME` is the name of the app.
-	* `ROUTE` is the internal route to your Prometheus endpoint.
-
-	For example, if the app name is `example-app` and the metrics endpoint lives at `https://example-app.cf.internal/metrics` the command would be:
-
-        ```
-        cf register-metrics-endpoint example-app https://example-app.cf.internal/metrics
-        ```
-
+<p class='note'><strong>Note: </strong> Each metrics endpoint registered with Metric Registrar creates a service instance. If the generated service name is longer than 50 characters, it will be encoded with a hash.</p>
 
 
 #### <a id="endpoint-verify"></a> Verify a Metrics Endpoint
@@ -208,7 +190,7 @@ The table below shows the supported JSON format for event, gauge, and counter lo
 
 </table>
 
-#### <a id="dogstatsd"></a> DogStatsD
+#### <a id="dogstatsd">DogStatsD</a>
 
 The table below shows the supported DogStatsD format for event, gauge, and counter log types. It also lists the supported fields. For more information about DogStatsD, see the [DogStatsD](https://docs.datadoghq.com/developers/dogstatsd/) topic in the Datadog documentation. 
 
