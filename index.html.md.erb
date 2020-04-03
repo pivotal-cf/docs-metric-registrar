@@ -16,7 +16,7 @@ The Metric Registrar allows app developers to export custom app metrics in a for
 
 App developers can export custom metrics to Loggregator by configuring their apps in one of the following ways:
 
-* **Metrics Endpoint:** Publish and register a Prometheus Exposition metrics endpoint to an app. The Metric Registrar will then poll this endpoint every 35 seconds and convert the metrics found in the response to Loggregator metrics.
+* **Metrics Endpoint:** Publish and register a Prometheus Exposition metrics endpoint to an app. The Metric Registrar then polls this endpoint every 35 seconds and convert the metrics found in the response to Loggregator metrics.
 
 * **Structured Log:** Modify your app to emit metrics using a specific JSON or DogStatsD format. The Metric Registrar then converts all matching log messages into Loggregator metrics or events.
 
