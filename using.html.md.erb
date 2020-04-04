@@ -2,26 +2,26 @@
 title: Using Metric Registrar
 owner: Metric Registrar
 ---
-This topic describes how to install the Metric Registrar CLI plugin and emit custom app
-metrics to the Metric Registrar by registering your app as a metric source.
 
-For information about how the Metric Registrar processes custom app metrics and how to configure the Metric Registrar, see [Metric Registrar and Custom App Metrics](./index.html).
+This topic describes how to install the Metric Registrar CLI plugin and emit custom app metrics to the Metric Registrar by registering your app as a metric source.
+
+For information about how the Metric Registrar processes custom app metrics and how to configure the Metric Registrar, see [Metric Registrar and Custom App Metrics](index.html).
+
 
 ## <a id="overview"></a> Overview
 
-Registering your app as a metric source allows you to see your custom metrics in <%= vars.product_name %>
-Metrics and configure autoscaling rules with <%= vars.product_name %>
-Autoscaler. 
+Registering your app as a metric source allows you to see your custom metrics in App Metrics and configure autoscaling rules with App Autoscaler. 
 
-For more information, see [<%= vars.product_name %> Metrics](https://docs.pivotal.io/app-metrics) and [<%= vars.product_name %> Autoscaler](../appsman-services/autoscaler/using-autoscaler.html).
+For more information, see [App Metrics](https://docs.pivotal.io/app-metrics) and [App Autoscaler](../appsman-services/autoscaler/using-autoscaler.html).
+
 
 ## <a id="install-plugin"></a> Install the Plugin
 
-To install the Metric Registrar CLI plugin, do the following:
+To install the Metric Registrar CLI plugin:
 
 1. Log in to the Cloud Foundry Command Line Interface (cf CLI).
 
-1. Run the following command:
+1. Run:
 
 	```
 	cf install-plugin -r CF-Community "metric-registrar"
@@ -31,10 +31,11 @@ To install the Metric Registrar CLI plugin, do the following:
 
 To register your app as a metric source, do one of the following:
 
-* **Register a metrics endpoint**: Register a metrics endpoint for custom metrics to be parsed and emitted to Loggregator. See [Register a Metrics Endpoint](#register-endpoint) below.
-* **Register a structured log format**: Register a structured log format that can be emitted to Loggregator. See [Register a Structured Log Format](#register-log-format).
+* **Register a metrics endpoint:** Register a metrics endpoint for custom metrics to be parsed and emitted to Loggregator. For more information, see [Register a Metrics Endpoint](#register-endpoint).
 
-<p class='note'><b>Note: </b> If you are migrating from and manually send data to Metrics Forwarder for <%= vars.product_name %>, Pivotal recommends registering a structured log format. See <a href="#register-log-format">Register a Structured Log Format.</p>
+* **Register a structured log format**: Register a structured log format that can be emitted to Loggregator. For more information, see [Register a Structured Log Format](#register-log-format).
+
+<p class='note'><strong>Note:</strong> If you are migrating from and manually send data to Metrics Forwarder, <%= vars.company_name %> recommends registering a structured log format. For more information, see <a href="#register-log-format">Register a Structured Log Format</a>.</p>
 
 ### <a id="register-endpoint"></a> Register a Metrics Endpoint
 
@@ -44,13 +45,13 @@ For more information about Prometheus, see [What is Prometheus?](https://prometh
 
 For examples of apps that use Prometheus to publish metrics to an endpoint, see [metric-registrar-examples](https://github.com/pivotal-cf/metric-registrar-examples) in GitHub.
 
-<p class='note'><strong>Note: </strong> These endpoints are public by default. If you do not want to expose public metrics endpoints for your app, see <a href="#register-log-format">Register a Structured Log Format</a> below.</p>
+<p class='note'><strong>Note:</strong> These endpoints are public by default. If you do not want to expose public metrics endpoints for your app, see <a href="#register-log-format">Register a Structured Log Format</a>.</p>
 
-<p class='note'><strong>Note: </strong> Metrics endpoints must be served over <code>HTTPS</code>.</p>
+<p class='note'><strong>Note:</strong> Metrics endpoints must be served over HTTPS.</p>
 
 #### <a id="prerequisites"></a> Prerequisites
 
-Before registering a metrics endpoint, you must do the following:
+Before registering a metrics endpoint, you must:
 
 * For all Spring apps, update the `application.yml` file to include one or more Prometheus endpoints. For example:
 
@@ -68,79 +69,74 @@ Before registering a metrics endpoint, you must do the following:
 
 #### <a id="endpoint-procedure"></a> Register a Public Metrics Endpoint
 
-To register a public metrics endpoint for an app, do the following:
+To register a public metrics endpoint for an app:
 
 1. Log in to the cf CLI.
 
-1. For each Prometheus endpoint in your app, run the following command to register the endpoint as a metric source:
+1. For each Prometheus endpoint in your app, register the endpoint as a metric source by running:
 
 	```
-	 cf register-metrics-endpoint APP-NAME PATH-OR-URL
+	cf register-metrics-endpoint APP-NAME PATH-OR-URL
 	```  
 	Where:
 	* `APP-NAME` is the name of the app.
 	* `PATH-OR-URL` is the path to the Prometheus endpoint or a URL without the scheme.
 
-	For example, if the app name is `example` and the metrics endpoint lives at `https://example.com/metrics` the command would be:
+	For example, if the app name is `example` and the metrics endpoint is at `https://example.com/metrics`, the command would be:
         
-        ```
-        cf register-metrics-endpoint example /metrics
-        ```
+    ```
+    cf register-metrics-endpoint example /metrics
+    ```
+    Or, if pulling metrics from a different URL:
         
-        Or, if pulling metrics from a different URL:
-        
-        ```
-        cf register-metrics-endpoint example otherexample.com/metrics
-        ```
-
-<p class='note'><strong>Note: </strong> When specifying a path to a metrics endpoint, the path must start with a <code>/</code> character.</p>
-
-<p class='note'><strong>Note: </strong> When specifying a URL to a metrics endpoint, the scheme must be omitted and the URL must use https.
-
-<p class='note'><strong>Note: </strong> Each metrics endpoint registered with Metric Registrar creates a service instance. If the generated service name is longer than 50 characters, it will be encoded with a hash.</p>
-
+    ```
+    cf register-metrics-endpoint example otherexample.com/metrics
+    ```
+	<p class='note'><strong>Note:</strong> When specifying a path to a metrics endpoint, the path must start with a <code>/</code> character.</p>
+	<p class='note'><strong>Note:</strong> When specifying a URL to a metrics endpoint, the scheme must be omitted and the URL must use HTTPS.
+	<p class='note'><strong>Note:</strong> Each metrics endpoint registered with Metric Registrar creates a service instance. If the generated service name is longer than 50 characters, it is encoded with a hash.</p>
 
 #### <a id="endpoint-verify"></a> Verify a Metrics Endpoint
 
-Pivotal recommends that you install the LogCache cf CLI plugin to view metrics.
+<%= vars.company_name %> recommends that you install the LogCache cf CLI plugin to view metrics.
 
-To install and use the Log Cache cf CLI plugin, do the following:
+To install and use the Log Cache cf CLI plugin:
 
-1. To install Log Cache, run the following command:
+1. To install Log Cache, run:
 
     ```
     cf install-plugin -r CF-Community "log-cache"
     ```
 
-1. To view metrics for an app, run the following command:
+1. To view metrics for an app, run:
 
     ```
-    cf tail --envelope-class=metrics <APP_NAME> 
+    cf tail --envelope-class=metrics APP-NAME 
     ```
-
+    Where `APP-NAME` is the name of your app.
+    <br>
+    <br>
     For example, if you provided a custom metric called `users_per_cpu` as a gauge, you should see the following output:
-	
     <pre class="terminal">2019-06-18T10:49:28.27-0600 [app-name/1] GAUGE cpu:0.154763 percentage disk:14000128.000000 bytes disk_quota:33554432.000000 bytes memory:10190848.000000 bytes memory_quota:33554432.000000 bytes
     2019-06-18T10:49:26.42-0600 [app-name/1] GAUGE users_per_cpu:557.500000</pre>
-
-    Where the first line is default container metrics and the second line is custom app metrics `users_per_cpu`. <p class='note'><strong>Note: </strong> The Metric Registrar produces the following benign error message at every polling interval: <code>[LGR/] ERR Invalid syslog drain URL: parse failure</code></p>
+    Where the first line is default container metrics and the second line is custom app metrics `users_per_cpu`.
+    <p class='note'><strong>Note:</strong> The Metric Registrar produces the following benign error message at every polling interval: <code>[LGR/] ERR Invalid syslog drain URL: parse failure</code></p>
 
 ### <a id="register-log-format"></a> Register a Structured Log Format
 
-The Metric Registrar supports metrics emitted in JSON or DogStatsD formats. For more information about these formats, see the [JSON](#json) and [DogStatsD](#dogstatsd) sections below. 
+The Metric Registrar supports metrics emitted in JSON or DogStatsD formats. For more information about these formats, see [JSON](#json) and [DogStatsD](#dogstatsd). 
 
-To register your app as a metric source, do the following:
+To register your app as a metric source:
 
 1. Log in to the cf CLI.
 
-1. Run the following command:
+1. Run:
 
 	```
 	cf register-log-format APP-NAME FORMAT
 	```
-
 	Where:
-	* `APP-NAME` is the name of the app.
+	* `APP-NAME` is the name of your app.
 	* `FORMAT` is either `json` or `DogStatsD`.
 
 1. In your app, log a structured `json` or `DogStatsD` message to represent the custom metric.
@@ -156,43 +152,55 @@ The table below shows the supported JSON format for event, gauge, and counter lo
 </tr>
 <tr>
 	<td>Events</td>
-	<td><pre>{
-  "type": "event",
-  "title": "title",
-  "body": "body",
-  "tags": {
-    "tag1": "tag value"
-  }
-}</pre></td>
+	<td>
+		<pre>
+{
+   "type": "event",
+   "title": "title",
+   "body": "body",
+   "tags": {
+     "tag1": "tag value"
+   }
+}
+		</pre>
+	</td>
 </tr>
 <tr>
 	<td>Gauges</td>
-	<td><pre>{
-  "type": "gauge",
-  "name": "some-counter",
-  "value": <float>,
-  "tags": {
-    "tag1": "tag value"
-  }
-}</pre></td>
+	<td>
+		<pre>
+{
+   "type": "gauge",
+   "name": "some-counter",
+   "value": <float>,
+   "tags": {
+     "tag1": "tag value"
+   }
+}
+		</pre>
+	</td>
 </tr>
 <tr>
 	<td>Counters</td>
-	<td><pre>{
-  "type": "counter",
-  "name": "some-counter",
-  "delta": <uint>,
-  "tags": {
-    "tag1": "tag value"
-  }
-}</pre></td>
+	<td>
+		<pre>
+{
+   "type": "counter",
+   "name": "some-counter",
+   "delta": <uint>,
+   "tags": {
+     "tag1": "tag value"
+   }
+}
+		</pre>
+	</td>
 </tr>
 
 </table>
 
 ### <a id="dogstatsd"></a> DogStatsD Log Format
 
-The table below shows the supported DogStatsD format for event, gauge, and counter log types. It also lists the supported fields. For more information about DogStatsD, see the [DogStatsD](https://docs.datadoghq.com/developers/dogstatsd/) topic in the Datadog documentation. 
+The table below shows the supported DogStatsD format for event, gauge, and counter log types. It also lists the supported fields. For more information about DogStatsD, see [DogStatsD](https://docs.datadoghq.com/developers/dogstatsd/) in the Datadog documentation. 
 
 <table class="nice">
 <tr>
@@ -202,34 +210,26 @@ The table below shows the supported DogStatsD format for event, gauge, and count
 </tr>
 <tr>
 	<td>Events</td>
-	<td><pre>_e{title.length,text.length}:title|text|d:timestamp|</br>h:hostname|p:priority|t:alert_type|#tag1,tag2</pre>
-	</td>
+	<td><pre>_e{title.length,text.length}:title|text|d:timestamp|</br>h:hostname|p:priority|t:alert_type|#tag1,tag2</pre></td>
 	<td>
-		
-			<code>title</code><br>
-			<code>text</code>
-		
+		<code>title</code><br>
+		<code>text</code>
 	</td>
 </tr>
 <tr>
 	<td>Gauges</td>
 	<td><pre>gauge.name:value|g|@sample_rate|#tag1:value,tag2</pre></td>
 	<td>
-		
-			<code>gauge.name</code><br>
-			<code>value</code>
-		
+		<code>gauge.name</code><br>
+		<code>value</code>
 	</td>
 </tr>
 <tr>
 	<td>Counters</td>
 	<td><pre>counter.name:value|c|@sample_rate|#tag1:value,tag2</pre></td>
 	<td>
-		
-			<code>counter.name</code><br>
-			<code>value</code>
-		
+		<code>counter.name</code><br>
+		<code>value</code>
 	</td>
 </tr>
-
 </table>
