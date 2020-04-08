@@ -12,7 +12,7 @@ For information about how the Metric Registrar processes custom app metrics and 
 
 Registering your app as a metric source allows you to see your custom metrics in Pivotal App Metrics and configure autoscaling rules with Pivotal App Autoscaler. 
 
-For more information, see [Pivotal App Metrics](https://docs.pivotal.io/app-metrics) and [Pivotal App Autoscaler](../appsman-services/autoscaler/using-autoscaler.html).
+For more information, see the [Pivotal App Metrics](https://docs.pivotal.io/app-metrics) documentation and [Scaling an App Using App Autoscaler](../appsman-services/autoscaler/using-autoscaler.html).
 
 
 ## <a id="install-plugin"></a> Install the Plugin
@@ -35,7 +35,7 @@ To register your app as a metric source, do one of the following:
 
 * **Register a structured log format:** Register a structured log format that can be emitted to Loggregator. For more information, see [Register a Structured Log Format](#register-log-format).
 
-<p class='note'><strong>Note:</strong> If you are migrating from and manually send data to Metrics Forwarder for <%= vars.platform_name %>, <%= vars.recommended_by %> recommends registering a structured log format. For more information, see <a href="#register-log-format">Register a Structured Log Format</a>.</p>
+<p class='note'><strong>Note:</strong> If you are migrating from and manually send data to Pivotal Metrics Forwarder, <%= vars.recommended_by %> recommends registering a structured log format. For more information, see <a href="#register-log-format">Register a Structured Log Format</a> below.</p>
 
 ### <a id="register-endpoint"></a> Register a Metrics Endpoint
 
@@ -45,7 +45,7 @@ For more information about Prometheus, see [What is Prometheus?](https://prometh
 
 For examples of apps that use Prometheus to publish metrics to an endpoint, see [metric-registrar-examples](https://github.com/pivotal-cf/metric-registrar-examples) in GitHub.
 
-<p class='note'><strong>Note:</strong> These endpoints are public by default. If you do not want to expose public metrics endpoints for your app, see <a href="#register-log-format">Register a Structured Log Format</a>.</p>
+<p class='note'><strong>Note:</strong> These endpoints are public by default. If you do not want to expose public metrics endpoints for your app, see <a href="#register-log-format">Register a Structured Log Format</a> below.</p>
 
 <p class='note'><strong>Note:</strong> Metrics endpoints must be served over HTTPS.</p>
 
@@ -65,7 +65,7 @@ Before registering a metrics endpoint, you must:
 
 * For all Spring apps, update the security configuration file to permit access to the Prometheus endpoints. For an example, see [metric-registrar-examples](https://github.com/pivotal-cf/metric-registrar-examples/blob/master/java-spring-security/src/main/java/io/pivotal/metric_registrar/examples/spring_security/SecurityConfig.java) in GitHub.
 
-* For all other apps, see [client libraries](https://prometheus.io/docs/instrumenting/clientlibs/) provided by the open-source community.
+* For all other apps, see [Client libraries](https://prometheus.io/docs/instrumenting/clientlibs/) in the Prometheus documentation.
 
 #### <a id="endpoint-procedure"></a> Register a Public Metrics Endpoint
 
@@ -124,7 +124,7 @@ To install and use the Log Cache cf CLI plugin:
 
 ### <a id="register-log-format"></a> Register a Structured Log Format
 
-The Metric Registrar supports metrics emitted in JSON or DogStatsD formats. For more information about these formats, see [JSON](#json) and [DogStatsD](#dogstatsd). 
+The Metric Registrar supports metrics emitted in JSON or DogStatsD formats. For more information about these formats, see [JSON](#json) and [DogStatsD](#dogstatsd) below. 
 
 To register your app as a metric source:
 
