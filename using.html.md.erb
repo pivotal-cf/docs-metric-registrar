@@ -10,7 +10,7 @@ For information about how the Metric Registrar processes custom app metrics and 
 
 ## <a id="overview"></a> Overview
 
-Registering your app as a metric source allows you to see your custom metrics in App Metrics and configure autoscaling rules with App Autoscaler. 
+Registering your app as a metric source allows you to see your custom metrics in App Metrics and configure autoscaling rules with App Autoscaler.
 
 For more information, see the [App Metrics](https://docs.pivotal.io/app-metrics) documentation and [Scaling an App Using App Autoscaler](../appsman-services/autoscaler/using-autoscaler.html).
 
@@ -41,7 +41,7 @@ To register your app as a metric source, do one of the following:
 
 The Metric Registrar supports custom metrics created with the open-source tool, Prometheus. Prometheus uses a text-based exposition format common in many open-source libraries. It also provides several out-of-the-box metrics for different programming languages.
 
-For more information about Prometheus, see [What is Prometheus?](https://prometheus.io/docs/introduction/overview/#what-is-prometheus) in the Prometheus documentation. 
+For more information about Prometheus, see [What is Prometheus?](https://prometheus.io/docs/introduction/overview/#what-is-prometheus) in the Prometheus documentation.
 
 For examples of apps that use Prometheus to publish metrics to an endpoint, see [metric-registrar-examples](https://github.com/pivotal-cf/metric-registrar-examples) in GitHub.
 
@@ -77,25 +77,24 @@ To register a public metrics endpoint for an app:
 
 	```
 	cf register-metrics-endpoint APP-NAME PATH-OR-URL
-	```  
+	```
 	Where:
 	* `APP-NAME` is the name of the app.
 	* `PATH-OR-URL` is the path to the Prometheus endpoint, or a URL without the scheme.
 
 	For example, if the app name is `example` and the metrics endpoint is at `https://example.com/metrics`, the command would be:
-        
+
     ```
     cf register-metrics-endpoint example /metrics
     ```
     Or, if pulling metrics from a different URL:
-        
+
     ```
     cf register-metrics-endpoint example otherexample.com/metrics
     ```
-	<p class='note'><strong>Note:</strong> When specifying a path to a metrics endpoint, the path must start with a <code>/</code> character.</p>
-	<p class='note'><strong>Note:</strong> When specifying a URL to a metrics endpoint, the scheme must be omitted and the URL must use HTTPS.
+	<p class='note'><strong>Note:</strong> When you specify a URL to a metrics endpoint, the scheme must be omitted and the URL must use HTTPS. When you specify a path to a metrics endpoint, the path must start with a <code>/</code> character.</p>
 	<p class='note'><strong>Note:</strong> Each metrics endpoint registered with Metric Registrar creates a service instance. If the generated service name is longer than 50 characters, it is encoded with a hash.</p>
-	<p class='note'><strong>Note:</strong> As of version 1.3.1, <code>--insecure</code> flag is required for the same values provided in pervious versions.</p>
+	<p class='note'><strong>Note:</strong> In Metric Registrar v1.3.1 and later, you must use the <code>--insecure</code> flag for the same values you provided in previous versions.</p>
 
 #### <a id="endpoint-verify"></a> Verify a Metrics Endpoint
 
@@ -112,7 +111,7 @@ To install and use the Log Cache cf CLI plugin:
 1. To view metrics for an app, run:
 
     ```
-    cf tail --envelope-class=metrics APP-NAME 
+    cf tail --envelope-class=metrics APP-NAME
     ```
     Where `APP-NAME` is the name of your app.
     <br>
@@ -125,7 +124,7 @@ To install and use the Log Cache cf CLI plugin:
 
 ### <a id="register-log-format"></a> Register a Structured Log Format
 
-The Metric Registrar supports metrics emitted in JSON or DogStatsD formats. For more information about these formats, see [JSON](#json) and [DogStatsD](#dogstatsd) below. 
+The Metric Registrar supports metrics emitted in JSON or DogStatsD formats. For more information about these formats, see [JSON](#json) and [DogStatsD](#dogstatsd) below.
 
 To register your app as a metric source:
 
@@ -144,7 +143,7 @@ To register your app as a metric source:
 
 #### <a id="json"></a> JSON
 
-The table below shows the supported JSON format for event, gauge, and counter log types. 
+The table below shows the supported JSON format for event, gauge, and counter log types.
 
 <table>
 <tr>
@@ -201,7 +200,7 @@ The table below shows the supported JSON format for event, gauge, and counter lo
 
 ### <a id="dogstatsd"></a> DogStatsD Log Format
 
-The table below shows the supported DogStatsD format for event, gauge, and counter log types. It also lists the supported fields. For more information about DogStatsD, see [DogStatsD](https://docs.datadoghq.com/developers/dogstatsd/) in the Datadog documentation. 
+The table below shows the supported DogStatsD format for event, gauge, and counter log types. It also lists the supported fields. For more information about DogStatsD, see [DogStatsD](https://docs.datadoghq.com/developers/dogstatsd/) in the Datadog documentation.
 
 <table class="nice">
 <tr>
