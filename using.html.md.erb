@@ -37,7 +37,7 @@ To register your app as a metric source, do one of the following:
 
 <p class='note'><strong>Note:</strong> If you are migrating from and manually send data to Metrics Forwarder, <%= vars.company_name %> recommends registering a structured log format. For more information, see <a href="#register-log-format">Register a Structured Log Format</a> below.</p>
 
-### <a id="register-endpoint"></a> Register a Metrics Endpoint
+### <a id="register-public-endpoint"></a> Register a public Metrics Endpoint
 
 The Metric Registrar supports custom metrics created with the open-source tool, Prometheus. Prometheus uses a text-based exposition format common in many open-source libraries. It also provides several out-of-the-box metrics for different programming languages.
 
@@ -67,7 +67,7 @@ Before registering a metrics endpoint, you must:
 
 * For all other apps, see [Client libraries](https://prometheus.io/docs/instrumenting/clientlibs/) in the Prometheus documentation.
 
-#### <a id="endpoint-procedure"></a> Register a Public Metrics Endpoint
+#### <a id="endpoint-public-procedure"></a> Register a Public Metrics Endpoint
 
 To register a public metrics endpoint for an app:
 
@@ -75,22 +75,22 @@ To register a public metrics endpoint for an app:
 
 1. For each Prometheus endpoint in your app, register the endpoint as a metric source by running:
 
-	```
-	cf register-metrics-endpoint APP-NAME PATH-OR-URL
-	```
-	Where:
-	* `APP-NAME` is the name of the app.
-	* `PATH-OR-URL` is the path to the Prometheus endpoint, or a URL without the scheme.
+     ```
+     cf register-metrics-endpoint APP-NAME PATH-OR-URL --insecure
+     ```
+     Where:
+     * `APP-NAME` is the name of the app.
+     * `PATH-OR-URL` is the path to the Prometheus endpoint, or a URL without the scheme.
 
-	For example, if the app name is `example` and the metrics endpoint is at `https://example.com/metrics`, the command would be:
+     For example, if the app name is `example` and the metrics endpoint is at `https://example.com/metrics`, the command would be:
 
     ```
-    cf register-metrics-endpoint example /metrics
+    cf register-metrics-endpoint example /metrics --insecure
     ```
     Or, if pulling metrics from a different URL:
 
     ```
-    cf register-metrics-endpoint example otherexample.com/metrics
+    cf register-metrics-endpoint example otherexample.com/metrics --insecure
     ```
 	<p class='note'><strong>Note:</strong> When you specify a URL to a metrics endpoint, the scheme must be omitted and the URL must use HTTPS. When you specify a path to a metrics endpoint, the path must start with a <code>/</code> character.</p>
 	<p class='note'><strong>Note:</strong> Each metrics endpoint registered with Metric Registrar creates a service instance. If the generated service name is longer than 50 characters, it is encoded with a hash.</p>
@@ -121,6 +121,19 @@ To install and use the Log Cache cf CLI plugin:
     2019-06-18T10:49:26.42-0600 [app-name/1] GAUGE users_per_cpu:557.500000</pre>
     Where the first line is default container metrics and the second line is custom app metrics `users_per_cpu`.
     <p class='note'><strong>Note:</strong> The Metric Registrar produces the following benign error message at every polling interval: <code>[LGR/] ERR Invalid syslog drain URL: parse failure</code></p>
+
+#### <a id="endpoint-private-procedure"></a> Register a Private Metrics Endpoint
+
+To register a private metrics endpoint:
+1. Setup a prometheus endpoint that serves on a port that is not 8081
+2. Register the endpoint by running
+```
+cf register-metrics-endpoint APP-NAME PATH --internal-port PORT
+```
+Where:
+* `APP-NAME` is the name of the app.
+* `PATH` is the path to the Prometheus endpoint
+* `PORT` is the port where the Prometheus endpoint is served
 
 ### <a id="register-log-format"></a> Register a Structured Log Format
 
@@ -233,3 +246,41 @@ The table below shows the supported DogStatsD format for event, gauge, and count
 	</td>
 </tr>
 </table>
+
+#### <a id="cups-method"></a> Register using CUPS directly
+
+Metric Registrar works by utilizing the syslog drain User Provided Services. To create a Metric Registrar Service call
+
+```
+cf create-user-provided-service SERVICE_NAME -l BINDING
+```
+Where:
+* `SERVICE_NAME` is a service name of choice
+* `BINDING` is a binding as described below
+
+then bind the provided service by running the following cli command
+
+```
+cf bind-service APP_NAME SERVICE_NAME
+```
+Where:
+* `APP_NAME` is the name of the application
+* `SERVICE_NAME` is the service name you chose earlier
+
+The Binding Can use the following schemes: `secure-endpoint://`, `metrics-endpoint://` or `structured-format://`. The valid log formats are `DogStatsD` and `json`. For metrics endpoints, the rest of the uri will specify the host/port/path of the metrics endpoint.
+
+For example
+```
+secure-endpoint://:8081/metrics
+metrics-endpoint:///metrics
+structured-format://json
+```
+
+For secure endpoint, you will have to expose the additional port you are serving on via diego. One method of doing so is decribed below
+
+```
+cf curl /v2/apps/APP-GUID -X PUT -d '{"ports": [PORT1, PORT2, PORT3...]}'
+```
+Where:
+* `APP-GUID` is the GUID of your app.
+*  `PORT1, PORT2, PORT3...` is a comma-separated list of the ports on which you want your app to receive traffic.
