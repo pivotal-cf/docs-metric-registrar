@@ -87,7 +87,7 @@ To register a public metrics endpoint for an app:
     ```
     cf register-metrics-endpoint example /metrics --insecure
     ```
-    Or, if pulling metrics from a different URL:
+    Or, if pulling metrics by specifying an alternative route also mapped to the same app:
 
     ```
     cf register-metrics-endpoint example otherexample.com/metrics --insecure
