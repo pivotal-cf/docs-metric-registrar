@@ -10,9 +10,9 @@ The topic also explains how to enable and configure the Metric Registrar from th
 App metrics include custom app metrics that you can export with the Metric Registrar, plus container metrics emitted by all <%= vars.app_runtime_abbr %> containers. For information about container metrics, see [Container Metrics](../loggregator/container-metrics.html).
 
 
-## <a id="overview"></a> Overview 
+## <a id="overview"></a> Overview
 
-The Metric Registrar allows app developers to export custom app metrics in a format that Loggregator can consume. App developers can then use the custom metrics to monitor apps with App Metrics and configure autoscaling rules with App Autoscaler. 
+Metric Registrar allows app developers to export custom app metrics in a format that Loggregator can consume. App developers can then use the custom metrics to monitor apps with App Metrics and configure autoscaling rules with App Autoscaler.
 
 App developers can export custom metrics to Loggregator by configuring their apps in one of the following ways:
 
@@ -29,7 +29,7 @@ For more information about the components and products mentioned, see:
 * [App Autoscaler](https://docs.pivotal.io/pivotalcf/appsman-services/autoscaler/using-autoscaler.html)
 
 
-## <a id="architecture"></a> Architecture 
+## <a id="architecture"></a> Architecture
 
 The following diagram illustrates how the Metric Registrar sends your custom app metrics to Loggregator. The components of the Metric Registrar are:
 
@@ -45,6 +45,6 @@ The following diagram illustrates how the Metric Registrar sends your custom app
 Click the image for a larger representation.
 
 
-## <a id="configure"></a> Configure the Metric Registrar 
+## <a id="configure"></a> Configure the Metric Registrar
 
 <%= partial "/pcf/core/#{vars.current_major_version.sub('.', '-')}/metric-registrar" %>
