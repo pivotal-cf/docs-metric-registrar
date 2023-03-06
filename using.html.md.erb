@@ -79,8 +79,10 @@ To register a public metrics endpoint for an app:
      cf register-metrics-endpoint APP-NAME PATH-OR-URL --insecure
      ```
      Where:
-     * `APP-NAME` is the name of the app.
-     * `PATH-OR-URL` is the path to the Prometheus endpoint, or a URL without the scheme.
+     <ul>
+     <li><code>APP-NAME</code> is the name of the app.</li>
+     <li><code>PATH-OR-URL</code> is the path to the Prometheus endpoint, or a URL without the scheme.</li>
+     </ul>
 
      For example, if the app name is `example` and the metrics endpoint is at `https://example.com/metrics`, the command would be:
 
@@ -119,7 +121,9 @@ To install and use the Log Cache cf CLI plugin:
     For example, if you provided a custom metric called `users_per_cpu` as a gauge, you should see the following output:
     <pre class="terminal">2019-06-18T10:49:28.27-0600 [app-name/1] GAUGE cpu:0.154763 percentage disk:14000128.000000 bytes disk_quota:33554432.000000 bytes memory:10190848.000000 bytes memory_quota:33554432.000000 bytes
     2019-06-18T10:49:26.42-0600 [app-name/1] GAUGE users_per_cpu:557.500000</pre>
+
     Where the first line is default container metrics and the second line is custom app metrics `users_per_cpu`.
+
     <p class='note'><strong>Note:</strong> The Metric Registrar produces the following benign error message at every polling interval: <code>[LGR/] ERR Invalid syslog drain URL: parse failure</code></p>
 
 #### <a id="endpoint-private"></a> Register a Private Metrics Endpoint
@@ -133,9 +137,11 @@ To register a private metrics endpoint:
 	cf register-metrics-endpoint APP-NAME PATH --internal-port PORT
 	```
 	Where:
-	* `APP-NAME` is the name of the app.
-	* `PATH` is the path to the Prometheus endpoint.
-	* `PORT` is the port where the Prometheus endpoint is served.
+	<ul>
+	<li><code>APP-NAME</code> is the name of the app.</li>
+	<li><code>PATH</code> is the path to the Prometheus endpoint.</li>
+	<li><code>PORT</code> is the port where the Prometheus endpoint is served.</li>
+	</ul>
 
 ### <a id="register-log-format"></a> Register a Structured Log Format
 
@@ -151,8 +157,10 @@ To register your app as a metric source:
 	cf register-log-format APP-NAME FORMAT
 	```
 	Where:
-	* `APP-NAME` is the name of your app.
-	* `FORMAT` is either `json` or `DogStatsD`.
+	<ul>
+        <li><code>APP-NAME</code> is the name of your app.</li>
+        <li><code>FORMAT</code> is either `json` or `DogStatsD`.</li>
+	</ul>
 
 1. In your app, log a structured `json` or `DogStatsD` message to represent the custom metric.
 
@@ -261,11 +269,16 @@ To create a Metric Registrar Service:
 	cf create-user-provided-service SERVICE-NAME -l BINDING
 	```
 	Where:
-	* `SERVICE-NAME` is the name you choose for the service.
-	* `BINDING` is the service binding. The binding can use the following schemes:
-		- `secure-endpoint://`
-		- `metrics-endpoint://`
-		- `structured-format://`
+	<ul>
+        <li><code>SERVICE-NAME</code> is the name you choose for the service.</li>
+        <li><code>BINDING</code> is the service binding. The binding can use the following schemes:
+        	<ul>
+        	<li><code>secure-endpoint://</code></li>
+        	<li><code>metrics-endpoint://</code></li>
+        	<li><code>structured-format://</code></li>
+        	</ul>
+        </li>
+   	</ul>
 
 1. Bind the provided service by running:
 
@@ -273,8 +286,10 @@ To create a Metric Registrar Service:
 	cf bind-service APP-NAME SERVICE-NAME
 	```
 	Where:
-	* `APP-NAME` is the name of the app.
-	* `SERVICE-NAME` is the service name you chose in the previous step.
+	<ul>
+	<li><code>APP-NAME</code> is the name of the app.</li>
+	<li><code>SERVICE-NAME</code> is the service name you chose in the previous step.</li>
+	</ul>
 
 The Metric Registrar supports metrics emitted in JSON or DogStatsD formats.
 For metrics endpoints, the rest of the URI specifies the host, port, and path of the metrics endpoint.
