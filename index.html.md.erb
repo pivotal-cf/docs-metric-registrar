@@ -40,11 +40,11 @@ The following diagram illustrates how the Metric Registrar sends your custom app
 * The `metric_registrar_orchestrator` and `metric_registrar_smoke_test` jobs running on the Clock Global VM of the <%= vars.app_runtime_abbr %> deployment
 
 <%# To edit the image, see https://docs.google.com/drawings/d/1A-1bwP3TuHtEDEg1I_68C3VsEKuCITNWDE-oVB9S0HU/edit?usp=sharing %>
-<a target="_blank" href="./images/metrics-registrar-architecture.png"><img src="./images/metrics-registrar-architecture.png" alt="Metric Registrar Architecture Diagram"></a>
+
+![Metric Registrar Architecture Diagram](./images/metrics-registrar-architecture.png)
 
 Click the image for a larger representation.
 
-
 ## <a id="configure"></a> Configure the Metric Registrar
 
-<%= partial "/pcf/core/#{vars.current_major_version.sub('.', '-')}/metric-registrar" %>
+<%= partial "/pcf/core/metric-registrar" %>
