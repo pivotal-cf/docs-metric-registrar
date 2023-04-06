@@ -10,26 +10,25 @@ For information about how the Metric Registrar processes custom app metrics and 
 
 ## <a id="overview"></a> Overview
 
-Registering your app as a metric source lets you see your custom metrics in App Metrics and configure autoscaling rules with App Autoscaler.
+Registering your app as a metric source lets you see custom metrics in App Metrics and configure autoscaling rules with App Autoscaler.
 
 For more information, see the [App Metrics](https://docs.pivotal.io/app-metrics) and [Scaling an App Using App Autoscaler](../appsman-services/autoscaler/using-autoscaler.html).
 
 
-## <a id="install-plugin"></a> Install the Plugin
+## <a id="install-plugin"></a> Install the Plug-in
 
 To install the Metric Registrar CLI plug-in:
 
 1. Log in to the Cloud Foundry Command Line Interface (cf CLI).
 
 1. Run:
-
-	```
+	```console
 	cf install-plugin -r CF-Community "metric-registrar"
 	```
 
-## <a id="register"></a> Register Your App
+## <a id="register"></a> Register your App
 
-To register your app as a metric source, do one of the following:
+To register your app as a metric source, complete one of the following tasks:
 
 * **Register a metrics endpoint:** Register a metrics endpoint for custom metrics to be parsed and emitted to Loggregator. For more information, see [Register a Metrics Endpoint](#register-endpoint).
 
@@ -100,9 +99,9 @@ To register a public metrics endpoint for an app:
 
 #### <a id="endpoint-verify"></a> **Verify a Metrics Endpoint**
 
-<%= vars.company_name %> recommends that you install the LogCache cf CLI plugin to view metrics.
+<%= vars.company_name %> recommends that you install the LogCache cf CLI plug-in to view metrics.
 
-To install and use the Log Cache cf CLI plugin:
+To install and use the Log Cache cf CLI plug-in:
 
 1. To install Log Cache, run:
 
