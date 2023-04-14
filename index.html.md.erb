@@ -20,7 +20,7 @@ App developers can export custom metrics to Loggregator by configuring their app
 
 * **Structured Log:** Modify your app to emit metrics using a specific JSON or DogStatsD format. The Metric Registrar then converts all matching log messages into Loggregator metrics or events.
 
-For more information about installing the Metric Registrar Plugin and registering your app, see [Emitting Custom App Metrics to the Metric Registrar](using.html).
+For more information about installing the Metric Registrar Plug-in and registering your app, see [Emitting Custom App Metrics to the Metric Registrar](using.html).
 
 For more information about the components and products mentioned, see:
 
@@ -33,7 +33,7 @@ For more information about the components and products mentioned, see:
 
 The following diagram illustrates how the Metric Registrar sends your custom app metrics to Loggregator. The components of the Metric Registrar are:
 
-* The cf CLI plugin
+* The cf CLI plug-in
 
 * The `metric_registrar_endpoint_worker` and `metric_registrar_log_worker` jobs running on the Doppler VM of the <%= vars.app_runtime_abbr %> deployment
 

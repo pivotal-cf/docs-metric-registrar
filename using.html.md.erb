@@ -3,9 +3,9 @@ title: Using Metric Registrar
 owner: Metric Registrar
 ---
 
-This topic describes how to install the Metric Registrar CLI plug-in and emit custom app metrics to the Metric Registrar by registering your app as a metric source.
+This topic describes how to install the Metric Registrar CLI plug-in and emit custom app metrics to Metric Registrar by registering your app as a metric source.
 
-For information about how the Metric Registrar processes custom app metrics and how to configure the Metric Registrar, see [Metric Registrar and Custom App Metrics](index.html).
+For information about how the Metric Registrar processes custom app metrics and how to configure Metric Registrar, see [Metric Registrar and Custom App Metrics](index.html).
 
 
 ## <a id="overview"></a> Overview
@@ -38,7 +38,7 @@ To register your app as a metric source, complete one of the following tasks:
 
 ### <a id="register-endpoint"></a> Register a Metrics Endpoint
 
-The Metric Registrar supports custom metrics created with the open-source tool, Prometheus. Prometheus uses a text-based exposition format common in many open-source libraries. It also provides several out-of-the-box metrics for different programming languages.
+Metric Registrar supports custom metrics created with the open-source tool, Prometheus. Prometheus uses a text-based exposition format common in many open-source libraries. It also provides several out-of-the-box metrics for different programming languages.
 
 For more information about Prometheus, see [What is Prometheus?](https://prometheus.io/docs/introduction/overview/#what-is-prometheus) in the Prometheus documentation.
 
@@ -123,7 +123,7 @@ To install and use the Log Cache cf CLI plug-in:
 
     Where the first line is default container metrics and the second line is custom app metrics `users_per_cpu`.
 
-    <p class='note'><strong>Note:</strong> The Metric Registrar produces the following benign error message at every polling interval: <code>[LGR/] ERR Invalid syslog drain URL: parse failure</code></p>
+    <p class='note'><strong>Note:</strong> Metric Registrar produces the following benign error message at every polling interval: <code>[LGR/] ERR Invalid syslog drain URL: parse failure</code></p>
 
 #### <a id="endpoint-private"></a> **Register a Private Metrics Endpoint**
 
@@ -144,7 +144,7 @@ To register a private metrics endpoint:
 
 ### <a id="register-log-format"></a> Register a Structured Log Format
 
-The Metric Registrar supports metrics emitted in JSON or DogStatsD formats. For more information see [JSON](#json) and [DogStatsD](#dogstatsd).
+Metric Registrar supports metrics emitted in JSON or DogStatsD formats. For more information see [JSON](#json) and [DogStatsD](#dogstatsd).
 
 To register your app as a metric source:
 
@@ -165,7 +165,7 @@ To register your app as a metric source:
 
 #### <a id="json"></a> JSON
 
-This table shows the supported JSON format for event, gauge, and counter log types.
+The following table shows the supported JSON format for event, gauge, and counter log types.
 
 <table>
 <tr>
@@ -256,7 +256,7 @@ This table shows the supported DogStatsD format for event, gauge, and counter lo
 </tr>
 </table>
 
-#### <a id="cups-method"></a> **Register Using CUPS**
+#### <a id="cups-method"></a> **Register using CUPS**
 
 Metric Registrar uses the syslog drain User Provided Service.
 
@@ -291,7 +291,7 @@ To create a Metric Registrar Service, run the following command:
 	<li><code>SERVICE-NAME</code> is the service name you chose in the previous step.</li>
 	</ul>
 
-The Metric Registrar supports metrics emitted in JSON or DogStatsD formats.
+Metric Registrar supports metrics emitted in JSON or DogStatsD formats.
 For metrics endpoints, the rest of the URI specifies the host, port, and path of the metrics endpoint.
 
 For example:
