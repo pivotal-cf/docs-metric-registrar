@@ -3,19 +3,16 @@ title: Using Metric Registrar
 owner: Metric Registrar
 ---
 
-This topic describes how to install the Metric Registrar CLI plugin and emit custom app metrics to the Metric Registrar by registering your app as a metric source.
+You can install the Metric Registrar CLI plug-in and emit custom app metrics to Metric Registrar by registering your app as a metric source.
 
-For information about how the Metric Registrar processes custom app metrics and how to configure the Metric Registrar, see [Metric Registrar and Custom App Metrics](index.html).
-
-
-## <a id="overview"></a> Overview
+For information about how the Metric Registrar processes custom app metrics and how to configure Metric Registrar, see [Metric Registrar and custom App Metrics](index.html).
 
 Registering your app as a metric source allows you to see your custom metrics in App Metrics and configure autoscaling rules with App Autoscaler.
 
-For more information, see the [App Metrics](https://docs.pivotal.io/app-metrics) documentation and [Scaling an App Using App Autoscaler](../appsman-services/autoscaler/using-autoscaler.html).
+For more information, see the [App Metrics](https://docs.pivotal.io/app-metrics) and [Scaling an App using App Autoscaler](../appsman-services/autoscaler/using-autoscaler.html).
 
 
-## <a id="install-plugin"></a> Install the Plugin
+## <a id="install-plugin"></a> Installing the plug-in
 
 To install the Metric Registrar CLI plugin:
 
@@ -67,7 +64,7 @@ Before registering a metrics endpoint, you must:
 
 * For all other apps, see [Client libraries](https://prometheus.io/docs/instrumenting/clientlibs/) in the Prometheus documentation.
 
-#### <a id="endpoint-public"></a> Register a Public Metrics Endpoint
+#### <a id="endpoint-public"></a> **Registering a public metrics endpoint**
 
 To register a public metrics endpoint for an app:
 
@@ -98,7 +95,7 @@ To register a public metrics endpoint for an app:
 	<p class='note'><strong>Note:</strong> Each metrics endpoint registered with Metric Registrar creates a service instance. If the generated service name is longer than 50 characters, it is encoded with a hash.</p>
 	<p class='note'><strong>Note:</strong> In Metric Registrar v1.3.1 and later, you must use the <code>--insecure</code> flag for the same values you provided in previous versions.</p>
 
-#### <a id="endpoint-verify"></a> Verify a Metrics Endpoint
+#### <a id="endpoint-verify"></a> **Verifying a metrics endpoint**
 
 <%= vars.company_name %> recommends that you install the LogCache cf CLI plugin to view metrics.
 
@@ -126,7 +123,7 @@ To install and use the Log Cache cf CLI plugin:
 
     <p class='note'><strong>Note:</strong> The Metric Registrar produces the following benign error message at every polling interval: <code>[LGR/] ERR Invalid syslog drain URL: parse failure</code></p>
 
-#### <a id="endpoint-private"></a> Register a Private Metrics Endpoint
+#### <a id="endpoint-private"></a> **Registering a private metrics endpoint**
 
 To register a private metrics endpoint:
 
@@ -143,7 +140,7 @@ To register a private metrics endpoint:
 	<li><code>PORT</code> is the port where the Prometheus endpoint is served.</li>
 	</ul>
 
-### <a id="register-log-format"></a> Register a Structured Log Format
+### <a id="register-log-format"></a> Registering a structured log format
 
 The Metric Registrar supports metrics emitted in JSON or DogStatsD formats. For more information about these formats, see [JSON](#json) and [DogStatsD](#dogstatsd) below.
 
@@ -223,7 +220,7 @@ The table below shows the supported JSON format for event, gauge, and counter lo
 
 #### <a id="dogstatsd"></a> DogStatsD Log Format
 
-The table below shows the supported DogStatsD format for event, gauge, and counter log types. It also lists the supported fields. For more information about DogStatsD, see [DogStatsD](https://docs.datadoghq.com/developers/dogstatsd/) in the Datadog documentation.
+The following table shows the supported DogStatsD format for event, gauge, and counter log types. It also lists the supported fields. For more information about DogStatsD, see [DogStatsD](https://docs.datadoghq.com/developers/dogstatsd/) in the Datadog documentation.
 
 <table class="nice">
 <tr>
@@ -257,7 +254,7 @@ The table below shows the supported DogStatsD format for event, gauge, and count
 </tr>
 </table>
 
-#### <a id="cups-method"></a> Register Using CUPS
+#### <a id="cups-method"></a> **Registering using CUPS**
 
 Metric Registrar uses the syslog drain User Provided Service.
 
@@ -312,4 +309,4 @@ cf curl /v2/apps/APP-GUID -X PUT -d '{"ports": [PORT1, PORT2, PORT3...]}'
 Where:
 
 * `APP-GUID` is the GUID of your app.
-*  `PORT1, PORT2, PORT3...` is a comma-separated list of the ports on which you want your app to receive traffic.
+*  `PORT1, PORT2, PORT3...` is a comma separated list of the ports on which you want your app to receive traffic.
