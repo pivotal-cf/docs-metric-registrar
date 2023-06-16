@@ -3,17 +3,18 @@ title: Metric Registrar and custom App Metrics
 owner: registrar
 ---
 
-This topic tells you about the Metric Registrar for <%= vars.app_runtime_first %>, which lets developers define and use their own
+This topic tells you about the Metric Registrar for <%= vars.app_runtime_first %>, which lets you define and use your own
 custom app metrics.
 
 You can activate and configure the Metric Registrar from the <%= vars.app_runtime_abbr %> tile.
 
-App metrics include custom app metrics that you can export with the Metric Registrar, plus container metrics that are emitted
+App metrics include custom app metrics that you can export with Metric Registrar, plus container metrics that are emitted
 by all <%= vars.app_runtime_abbr %> containers. For information about container metrics, see [Container metrics](../loggregator/container-metrics.html).
 
-The Metric Registrar allows app developers to export custom app metrics in a format that Loggregator can consume. App developers can then use the custom metrics to monitor apps with App Metrics and configure autoscaling rules with App Autoscaler.
+Metric Registrar allows you to export custom app metrics in a format that Loggregator can consume. You can use the custom metrics to
+monitor apps with App Metrics and configure autoscaling rules with App Autoscaler.
 
-App developers can export custom metrics to Loggregator by configuring their apps in one of the following ways:
+If you are an App developer, you can export custom metrics to Loggregator by configuring your apps in one of the following ways:
 
 * **Metrics Endpoint:** Publish and register a Prometheus Exposition metrics endpoint to an app. The Metric Registrar then polls this endpoint every 35 seconds and convert the metrics found in the response to Loggregator metrics.
 
@@ -30,7 +31,8 @@ For more information about the components and products mentioned, see:
 
 ## <a id="architecture"></a> Architecture
 
-The following diagram illustrates how the Metric Registrar sends your custom app metrics to Loggregator. The components of the Metric Registrar are:
+The following diagram illustrates how the Metric Registrar sends your custom app metrics to Loggregator.
+The components of the Metric Registrar are:
 
 * The cf CLI plugin
 
@@ -44,6 +46,6 @@ The following diagram illustrates how the Metric Registrar sends your custom app
 
 Click the image for a larger representation.
 
-## <a id="configure"></a> Configure the Metric Registrar
+## <a id="configure"></a> Configuring Metric Registrar
 
 <%= partial "/pcf/core/metric-registrar" %>
