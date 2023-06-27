@@ -3,12 +3,12 @@ title: Metric Registrar and custom App Metrics
 owner: registrar
 ---
 
-This topic tells you about the Metric Registrar for <%= vars.app_runtime_first %>, which lets you define and use your own
+Using Metric Registrar for <%= vars.app_runtime_first %>, you can define and use your own
 custom app metrics.
 
 You can activate and configure the Metric Registrar from the <%= vars.app_runtime_abbr %> tile.
 
-App metrics include custom app metrics that you can export with Metric Registrar, plus container metrics that are emitted
+App metrics include custom app metrics that you can export with Metric Registrar, and container metrics that are emitted
 by all <%= vars.app_runtime_abbr %> containers. For information about container metrics, see [Container metrics](../loggregator/container-metrics.html).
 
 Metric Registrar allows you to export custom app metrics in a format that Loggregator can consume. You can use the custom metrics to
@@ -18,15 +18,15 @@ If you are an App developer, you can export custom metrics to Loggregator by con
 
 * **Metrics Endpoint:** Publish and register a Prometheus Exposition metrics endpoint to an app. The Metric Registrar then polls this endpoint every 35 seconds and convert the metrics found in the response to Loggregator metrics.
 
-* **Structured Log:** Modify your app to emit metrics using a specific JSON or DogStatsD format. The Metric Registrar then converts all matching log messages into Loggregator metrics or events.
+* **Structured Log:** Edit your app to emit metrics using a specific JSON or DogStatsD format. The Metric Registrar then converts all matching log entries into Loggregator metrics or events.
 
 For more information about installing the Metric Registrar plug-in and registering your app, see [Emitting custom App Metrics to Metric Registrar](using.html).
 
 For more information about the components and products mentioned, see:
 
-* [Loggregator](https://docs.pivotal.io/pivotalcf/loggregator/architecture.html)
-* [App Metrics](https://docs.pivotal.io/app-metrics)
-* [App Autoscaler](https://docs.pivotal.io/pivotalcf/appsman-services/autoscaler/using-autoscaler.html)
+* [Loggregator](https://docs.vmware.com/en/VMware-Tanzu-Application-Service/4.0/tas-for-vms/loggregator-architecture.html)
+* [App Metrics](https://docs.vmware.com/en/App-Metrics-for-VMware-Tanzu/2.2/app-metrics/GUID-index.html)
+* [App Autoscaler](https://docs.vmware.com/en/VMware-Tanzu-Application-Service/4.0/tas-for-vms/autoscaler-using-autoscaler.html)
 
 
 ## <a id="architecture"></a> Architecture
@@ -42,7 +42,7 @@ The components of the Metric Registrar are:
 
 <%# To edit the image, see https://docs.google.com/drawings/d/1A-1bwP3TuHtEDEg1I_68C3VsEKuCITNWDE-oVB9S0HU/edit?usp=sharing %>
 
-![alt-text="Metric Registrar Architecture"](./images/metrics-registrar-architecture.png)
+![alt-text="The architecture include Loggregator, Diego Cell, and the Metric Registrar components."](./images/metrics-registrar-architecture.png)
 
 Click the image for a larger representation.
 
