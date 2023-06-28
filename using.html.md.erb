@@ -43,7 +43,7 @@ For more information about Prometheus, see [What is Prometheus?](https://prometh
 
 For examples of apps that use Prometheus to publish metrics to an endpoint, see [metric-registrar-examples](https://github.com/pivotal-cf/metric-registrar-examples) in GitHub.
 
-<p class='note important'><strong>Important:</strong> These endpoints are public by default. If you do not want to expose public metrics endpoints for your app, see <a href="#register-log-format">Register a Structured Log Format</a> below.</p>
+<p class='note important'><span class="note__title">Important</span>These endpoints are public by default. If you do not want to expose public metrics endpoints for your app, see <a href="#register-log-format">Register a Structured Log Format</a> below.</p>
 
 #### <a id="prerequisites"></a> Prerequisites
 
@@ -121,7 +121,7 @@ To install and use the Log Cache cf CLI plug-in:
 
     Where the first line is default container metrics and the second line is custom app metrics `users_per_cpu`.
 
-    <p class='note'><strong>Note:</strong> Metric Registrar produces the following benign error message at every polling interval: <code>[LGR/] ERR Invalid syslog drain URL: parse failure</code></p>
+    <p class='note'><span class="note__title">Important</span>Metric Registrar produces the following benign error message at every polling interval: <code>[LGR/] ERR Invalid syslog drain URL: parse failure</code></p>
 
 #### <a id="endpoint-private"></a> Registering a private metrics endpoint
 
