@@ -5,11 +5,12 @@ owner: Metric Registrar
 
 You can install the Metric Registrar CLI plug-in and emit custom app metrics to Metric Registrar by registering your app as a metric source.
 
-For information about how Metric Registrar processes custom app metrics and how to configure Metric Registrar, see [Metric Registrar and custom App Metrics](index.html).
+For information about how Metric Registrar approaches custom App Metrics and how to configure Metric Registrar, see [Metric Registrar and custom App Metrics](index.html).
 
-Registering your app as a metric source allows you to see your custom metrics in App Metrics and configure autoscaling rules with App Autoscaler.
+Registering your app as a metric source lets you see custom metrics in App Metrics and configure autoscaling
+rules with App Autoscaler.
 
-For more information, see the [App Metrics](https://docs.pivotal.io/app-metrics) and [Scaling an App using App Autoscaler](../appsman-services/autoscaler/using-autoscaler.html).
+For more information, see [App Metrics](https://docs.vmware.com/en/App-Metrics-for-VMware-Tanzu/2.2/app-metrics/GUID-index.html) and [Scaling an app using App Autoscaler](../appsman-services/autoscaler/using-autoscaler.html).
 
 
 ## <a id="install-plugin"></a> Installing the plug-in
@@ -32,7 +33,7 @@ To register your app as a metric source, do one of the following:
 
 * **Register a structured log format:** Register a structured log format that can be emitted to Loggregator. For more information, see [Register a Structured Log Format](#register-log-format).
 
-<p class='note'><strong>Note:</strong> If you are migrating from and manually send data to Metrics Forwarder, <%= vars.company_name %> recommends registering a structured log format. For more information, see <a href="#register-log-format">Register a Structured Log Format</a> below.</p>
+If you are migrating from and manually sending data to Metrics Forwarder, <%= vars.company_name %>, register a structured log format. For more information, see <a href="#register-log-format">Register a structured log format</a>.</p>
 
 ### <a id="register-endpoint"></a> Register a Metrics Endpoint
 
@@ -42,9 +43,7 @@ For more information about Prometheus, see [What is Prometheus?](https://prometh
 
 For examples of apps that use Prometheus to publish metrics to an endpoint, see [metric-registrar-examples](https://github.com/pivotal-cf/metric-registrar-examples) in GitHub.
 
-<p class='note'><strong>Note:</strong> These endpoints are public by default. If you do not want to expose public metrics endpoints for your app, see <a href="#register-log-format">Register a Structured Log Format</a> below.</p>
-
-<p class='note'><strong>Note:</strong> Metrics endpoints must be served over HTTPS.</p>
+<p class='note important'><span class="note__title">Important</span> These endpoints are public by default. If you do not want to expose public metrics endpoints for your app, see <a href="#register-log-format">Register a Structured Log Format</a> below.</p>
 
 #### <a id="prerequisites"></a> Prerequisites
 
@@ -64,7 +63,7 @@ Before registering a metrics endpoint, you must:
 
 * For all other apps, see [Client libraries](https://prometheus.io/docs/instrumenting/clientlibs/) in the Prometheus documentation.
 
-#### <a id="endpoint-public"></a> **Registering a public metrics endpoint**
+#### <a id="endpoint-public"></a> Register a public metrics endpoint
 
 To register a public metrics endpoint for an app:
 
@@ -89,9 +88,15 @@ To register a public metrics endpoint for an app:
     ```
     cf register-metrics-endpoint example otherexample.com/metrics
     ```
-	<p class='note'><strong>Note:</strong> When specifying a path to a metrics endpoint, the path must start with a <code>/</code> character.</p>
-	<p class='note'><strong>Note:</strong> When specifying a URL to a metrics endpoint, the scheme must be omitted and the URL must use HTTPS.
-	<p class='note'><strong>Note:</strong> Each metrics endpoint registered with Metric Registrar creates a service instance. If the generated service name is longer than 50 characters, it is encoded with a hash.</p>
+	<p class="note important">
+<span class="note__title"> Important</span> Important When you specify a URL to a metrics endpoint, the scheme must be omitted
+and the URL must use HTTPS. When you specify a path to a metrics endpoint, the path must start with
+a slash (`/`) character. Each metrics endpoint registered with Metric Registrar creates a service instance. If
+the generated service name is longer than 50 characters, it's encoded with a hash.
+In Metric Registrar v1.3.1 and later, you must use the `--insecure` flag for the same values that you provided
+in previous versions.
+</p>
+
 
 #### <a id="endpoint-verify"></a> **Verifying a metrics endpoint**
 
@@ -119,7 +124,10 @@ To install and use the Log Cache cf CLI plugin:
     Where the first line is default container metrics and the second line is custom app metrics `users_per_cpu`.
     <p class='note'><strong>Note:</strong> The Metric Registrar produces the following benign error message at every polling interval: <code>[LGR/] ERR Invalid syslog drain URL: parse failure</code></p>
 
-#### <a id="endpoint-private"></a> **Registering a private metrics endpoint**
+    <p class='note'><span class="note__title">Important</span> Metric Registrar produces the following benign
+	error message at every polling interval: <code>[LGR/] ERR Invalid syslog drain URL: parse failure </code></p>
+
+#### <a id="endpoint-private"></a> Registering a private metrics endpoint
 
 To register a private metrics endpoint:
 
@@ -136,7 +144,7 @@ To register a private metrics endpoint:
 	<li><code>PORT</code> is the port where the Prometheus endpoint is served.</li>
 	</ul>
 
-### <a id="register-log-format"></a> Registering a structured log format
+### <a id="register-log-format"></a> Register a structured log format
 
 The Metric Registrar supports metrics emitted in JSON or DogStatsD formats. For more information about these formats, see [JSON](#json) and [DogStatsD](#dogstatsd) below.
 
@@ -155,7 +163,7 @@ To register your app as a metric source:
 
 1. In your app, log a structured `json` or `DogStatsD` message to represent the custom metric.
 
-#### <a id="json"></a> JSON
+#### <a id="json"></a> Supported JSON format
 
 The table below shows the supported JSON format for event, gauge, and counter log types.
 
@@ -214,8 +222,10 @@ The table below shows the supported JSON format for event, gauge, and counter lo
 
 ### <a id="dogstatsd"></a> DogStatsD Log Format
 
-The following table shows the supported DogStatsD format for event, gauge, and counter log types. It also lists the supported fields.
-For more information about DogStatsD, see [DogStatsD](https://docs.datadoghq.com/developers/dogstatsd/) in the Datadog documentation.
+The following table shows the supported DogStatsD format for event, gauge, and counter log types. It also
+lists the supported fields.
+For more information about DogStatsD, see [DogStatsD](https://docs.datadoghq.com/developers/dogstatsd/) in the
+Datadog documentation.
 
 <table class="nice">
 <tr>
@@ -249,7 +259,7 @@ For more information about DogStatsD, see [DogStatsD](https://docs.datadoghq.com
 </tr>
 </table>
 
-#### <a id="cups-method"></a> **Registering using CUPS**
+#### <a id="cups-method"></a> Register using syslog drain User Provided Service
 
 Metric Registrar uses the syslog drain User Provided Service.
 
