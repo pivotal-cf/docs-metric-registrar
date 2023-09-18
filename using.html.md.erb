@@ -43,7 +43,10 @@ For more information about Prometheus, see [What is Prometheus?](https://prometh
 
 For examples of apps that use Prometheus to publish metrics to an endpoint, see [metric-registrar-examples](https://github.com/pivotal-cf/metric-registrar-examples) in GitHub.
 
-<p class='note important'><span class="note__title">Important</span> These endpoints are public by default. If you do not want to expose public metrics endpoints for your app, see <a href="#register-log-format">Register a Structured Log Format</a> below.</p>
+<p class='note important'>
+<span class="note__title">Important</span>
+These endpoints are public by default. If you do not want to expose public metrics endpoints for your app, see 
+<a href="#register-log-format">Register a Structured Log Format</a> below.</p>
 
 #### <a id="prerequisites"></a> Prerequisites
 
@@ -91,13 +94,13 @@ To register a public metrics endpoint for an app:
     cf register-metrics-endpoint example otherexample.com/metrics --insecure
     ```
 	<p class="note important">
-<span class="note__title"> Important</span> Important When you specify a URL to a metrics endpoint, the scheme must be omitted
-and the URL must use HTTPS. When you specify a path to a metrics endpoint, the path must start with
-a slash (`/`) character. Each metrics endpoint registered with Metric Registrar creates a service instance. If
-the generated service name is longer than 50 characters, it's encoded with a hash.
-In Metric Registrar v1.3.1 and later, you must use the `--insecure` flag for the same values that you provided
-in previous versions.
-</p>
+	<span class="note__title">Important</span>
+	When you specify a URL to a metrics endpoint, the scheme must be omitted
+	and the URL must use HTTPS. When you specify a path to a metrics endpoint, the path must start with
+	a slash (`/`) character. Each metrics endpoint registered with Metric Registrar creates a service instance. If
+	the generated service name is longer than 50 characters, it's encoded with a hash.
+	In Metric Registrar v1.3.1 and later, you must use the `--insecure` flag for the same values that you provided
+	in previous versions.</p>
 
 
 #### <a id="endpoint-verify"></a> **Verifying a metrics endpoint**
@@ -126,10 +129,10 @@ To install and use the Log Cache cf CLI plugin:
 
     Where the first line is default container metrics and the second line is custom app metrics `users_per_cpu`.
 
-    <p class='note'>
+    <p class="note">
 	<span class="note__title">Important</span>
 	Metric Registrar produces the following benign
-	error message at every polling interval: <code>[LGR/] ERR Invalid syslog drain URL: parse failure </code></p>
+	error message at every polling interval: <code>[LGR/] ERR Invalid syslog drain URL: parse failure</code></p>
 
 #### <a id="endpoint-private"></a> Registering a private metrics endpoint
 
