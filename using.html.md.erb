@@ -177,11 +177,13 @@ To register your app as a metric source:
 
 The following table shows the supported JSON format for event, gauge, and counter log types.
 
-<table>
+<table class="table">
+<thead>
 <tr>
 	<th>Type</th>
 	<th>Format</th>
 </tr>
+</thead>
 <tr>
 	<td>Events</td>
 	<td>
@@ -237,12 +239,14 @@ lists the supported fields.
 For more information about DogStatsD, see [DogStatsD](https://docs.datadoghq.com/developers/dogstatsd/) in the
 Datadog documentation.
 
-<table class="nice">
+<table class="table">
+<thead>
 <tr>
 	<th width="10%">Type</th>
 	<th width="70%">Format</th>
 	<th width="20%">Supported Fields</th>
 </tr>
+</thead>
 <tr>
 	<td>Events</td>
 	<td><pre>_e{title.length,text.length}:title|text|d:timestamp|</br>h:hostname|p:priority|t:alert_type|#tag1,tag2</pre></td>
